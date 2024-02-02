@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+// path to our current folder, where the generated files will be placed
+option go_package = ".";
+
+// package name for our proto file
+package proto;
+
+// defining all the Services for the gRPC
+service Greeter{
+    // unary RPC
+    rpc SayHello(HelloRequest) returns (HelloReply);
+    // server streaming RPC
+    rpc SayHelloServerStreaming(NamesList) returns (stream HelloReply);
+    // client streaming RPC
+    rpc SayHelloClientStreaming(stream HelloRequest) returns (MessagesList);
+    // bidirectional streaming RPC
+    rpc SayHelloBidirectionalStreaming(stream HelloRequest) returns (stream HelloReply);
+}
+
+message HelloRequest{
+    string name = 1;
+}
+
+message HelloReply{
+    string message = 1;
+}
+
+message NamesList {
+    repeated string names = 1;
+}
+
+message MessagesList {
+    repeated string messages = 1;
+}
